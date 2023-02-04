@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import os
-from time import time
+# pylint: disable=import-error
+
+# import os
+# from time import time
 from datetime import timedelta
 import pandas as pd
-from sqlalchemy import create_engine
+
+# from sqlalchemy import create_engine
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 from prefect_sqlalchemy import SqlAlchemyConnector
+
 
 # task 1
 @task(
@@ -32,6 +36,7 @@ def extract_data(url):
     df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
     return df
 
+
 # task 2
 @task(
     log_prints=True,
@@ -46,6 +51,7 @@ def ingest_data(table_name, df):
 
         df.to_sql(name=table_name, con=engine, if_exists="append")
 
+
 #  flow
 @flow(name="ingest flow")
 def main():
@@ -57,6 +63,7 @@ def main():
 
     # second task
     ingest_data(table_name, df)
+
 
 if __name__ == "__main__":
     main()
