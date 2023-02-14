@@ -1,9 +1,7 @@
+boto3==1.26.64
+botocore==1.29.64
 pandas==1.5.2
 prefect==2.7.7
+prefect-aws==0.2.4
 prefect-sqlalchemy==0.2.2
-prefect-aws
-protobuf==4.21.11
-pyarrow==10.0.1
-pandas-gbq==0.18.1
-psycopg2-binary==2.9.5
-sqlalchemy==1.4.46
+redshift-connector==2.0.910

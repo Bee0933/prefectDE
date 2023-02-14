@@ -1,13 +1,13 @@
 # pylint: disable=import-error
 
+""" ETL from web to Data Lake (S3 Bucket)"""
+
 from pathlib import Path
 import pandas as pd
 from datetime import timedelta
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 from prefect_aws.s3 import S3Bucket
-
-# from prefect.filesystems import S3
 
 
 # fetch task (Extract)
@@ -43,12 +43,12 @@ def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     return path
 
 
-# load to bucket task (load remote)
+# load to bucket task (load remote) ---> load to Data Lake
 @task(log_prints=True)
 def write_aws(path: Path) -> None:
     """Upload local parquet file to AWS S3"""
-    aws_block = S3Bucket.load("zoom-s3")
-    aws_block.upload_from_path(from_path=path, to_path=path)
+    aws_s3_block = S3Bucket.load("zoom-s3")
+    aws_s3_block.upload_from_path(from_path=path, to_path=path)
     return
 
 
