@@ -1,2 +1,5 @@
 venv/
+data/
+data_*/
 output.csv
+cont.py
